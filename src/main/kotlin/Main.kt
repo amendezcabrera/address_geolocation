@@ -1,10 +1,9 @@
 import helper.Parser
-import model.Place
 import java.io.File
 
 class Main {
     companion object {
-        private const val DELAY_MILLIS = 500
+        private const val DELAY_MILLIS: Long = 1000
 
         @JvmStatic
         fun main(args: Array<String>) {
@@ -12,10 +11,10 @@ class Main {
                 val srcExcelFilePath: String = args[0]
                 var delay = DELAY_MILLIS
                 if (args.size > 1) {
-                    delay = args[1].toInt()
+                    delay = args[1].toLong()
                 }
                 val srcExcelFile = File(srcExcelFilePath)
-                Parser.Excel.parse(srcExcelFile)
+                Parser.Excel.parse(srcExcelFile, delay = delay)
             } else {
                 printUsage()
             }

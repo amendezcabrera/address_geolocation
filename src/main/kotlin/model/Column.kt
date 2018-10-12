@@ -10,5 +10,7 @@ class Column {
         val PROVINCE = 2
         @JvmField
         val PC = 3
+        @JvmField
+        val COUNTRY = 4
     }
 }
