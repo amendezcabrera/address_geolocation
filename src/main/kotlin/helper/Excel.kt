@@ -20,15 +20,20 @@ class Excel {
                 }
             } catch (e: IOException) {
                 println(e.message)
-                //e.printStackTrace()
                 System.exit(0)
             }
         }
     }
 
     object Line {
-        fun add(row: Row, cell: Int, value: String) {
-            row.createCell(cell).setCellValue(value)
+        object Box {
+            fun write(row: Row, cell: Int, value: String) {
+                row.createCell(cell).setCellValue(value)
+            }
+
+            fun isEmpty(row: Row, cell: Int): Boolean {
+                return row.getCell(cell).stringCellValue.equals("")
+            }
         }
 
         fun remove(sheet: Sheet, row: Row) {
@@ -39,10 +44,6 @@ class Excel {
             for (cell: Cell in row) {
                 cell.setCellValue("")
             }
-        }
-
-        fun isEmpty(row: Row, cell: Int): Boolean {
-            return row.getCell(cell).stringCellValue.equals("")
         }
     }
 }

@@ -25,8 +25,8 @@ class Parser {
                 try {
                     place = Data.Retrieve.fromAPI(place)
                     println(place)
-                    helper.Excel.Line.add(currentRow, 7, place.location.lat.toString())
-                    helper.Excel.Line.add(currentRow, 8, place.location.lng.toString())
+                    helper.Excel.Line.Box.write(currentRow, 7, place.location.lat.toString())
+                    helper.Excel.Line.Box.write(currentRow, 8, place.location.lng.toString())
                     helper.Excel.File.write(workbook, excelFile.absolutePath)
                 } catch (ex: Exception) {
                     println("${ex.message}")
