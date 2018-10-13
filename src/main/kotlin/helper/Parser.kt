@@ -14,7 +14,7 @@ class Parser {
             val iterator = sheet.iterator()
             while (iterator.hasNext()) {
                 val currentRow = iterator.next()
-                val place = Place(
+                var place = Place(
                         currentRow.getCell(Column.ADDRESS).stringCellValue,
                         currentRow.getCell(Column.CITY).stringCellValue,
                         currentRow.getCell(Column.PROVINCE).stringCellValue,
@@ -23,7 +23,11 @@ class Parser {
                             currentRow.getCell(Column.PC).stringCellValue else currentRow.getCell(Column.PC).numericCellValue.toInt().toString()
                 )
                 try {
-                    Data.Retrieve.fromAPI(place)
+                    place = Data.Retrieve.fromAPI(place)
+                    println(place)
+                    helper.Excel.Line.add(currentRow, 7, place.location.lat.toString())
+                    helper.Excel.Line.add(currentRow, 8, place.location.lng.toString())
+                    helper.Excel.File.write(workbook, excelFile.absolutePath)
                 } catch (ex: Exception) {
                     println("${ex.message}")
                 }
