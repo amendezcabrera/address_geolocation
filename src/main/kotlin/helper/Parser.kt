@@ -9,6 +9,9 @@ import java.io.File
 
 class Parser {
     object Excel {
+        private const val LAT_COLUMN = 7
+        private const val LNG_COLUMN = 8
+
         @JvmStatic
         fun parse(excelFile: File, sheetNumber: Int = 0, delay: Long) {
             val workbook = helper.Excel.File.open(excelFile.absolutePath)
@@ -32,7 +35,7 @@ class Parser {
             return Place(
                     currentRow.getCell(Column.ADDRESS).stringCellValue,
                     currentRow.getCell(Column.CITY).stringCellValue,
-                    currentRow.getCell(Column.PROVINCE).stringCellValue,
+                    currentRow.getCell(Column.COUNTY).stringCellValue,
                     currentRow.getCell(Column.COUNTRY).stringCellValue,
                     if (currentRow.getCell(Column.PC).cellType == CellType.STRING)
                         currentRow.getCell(Column.PC).stringCellValue else currentRow.getCell(Column.PC).numericCellValue.toInt().toString()
@@ -40,8 +43,8 @@ class Parser {
         }
 
         private fun write(excelFile: File, workbook: Workbook, currentRow: Row, place: Place) {
-            helper.Excel.Line.Box.write(currentRow, 7, place.location.lat.toString())
-            helper.Excel.Line.Box.write(currentRow, 8, place.location.lng.toString())
+            helper.Excel.Line.Box.write(currentRow, LAT_COLUMN, place.location.lat.toString())
+            helper.Excel.Line.Box.write(currentRow, LNG_COLUMN, place.location.lng.toString())
             helper.Excel.File.write(workbook, excelFile.absolutePath)
         }
     }

@@ -7,7 +7,7 @@ class Column {
         @JvmField
         val CITY = 1
         @JvmField
-        val PROVINCE = 2
+        val COUNTY = 2
         @JvmField
         val PC = 3
         @JvmField
